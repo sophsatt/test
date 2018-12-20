@@ -2,5 +2,4 @@ samples:
     table_for_reads.csv
 
 transcripts:
-    data/ref/transcriptome.chr21.fa
-
+    /data/ref/transcriptome.chr21.fa
