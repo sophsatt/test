@@ -13,14 +13,12 @@ rule kallisto_idx:
 	shell:
 		"kallisto index -i {output} {input}"
 
-rule kallisto_quant:
-	input:
-		id = config["kallisto_index"],
-		fq1 = samples["fq1"][{sample}],
-		fq2 = samples["fq2"][{sample}]
-	output:
-		"kallisto/" + samples["sample"][{sample}]
-	shell:
-		"kallisto quant -i {input.id} -o {output} {input.fq1} {input.fq2}"
-
-		
+#rule kallisto_quant:
+#	input:
+#		id = config["kallisto_index"],
+#		fq1 = samples["fq1"][{sample}],
+#		fq2 = samples["fq2"][{sample}]
+#	output:
+#		"kallisto/" + samples["sample"][{sample}]
+#	shell:
+#		"kallisto quant -i {input.id} -o {output} {input.fq1} {input.fq2}"
