@@ -8,7 +8,7 @@ samples = pd.read_csv(config["samples"], sep = "\t")
 
 rule all:
     input:
-        "sleuth/significant_transcripts.csv"
+        "plots/pca.svg"
 
 rule kallisto_idx:
     input:
