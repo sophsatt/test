@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-circlize =0.4.5
+  - bioconductor-complexheatmap =1.18
+
+
+
