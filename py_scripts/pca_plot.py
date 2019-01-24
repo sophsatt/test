@@ -4,7 +4,9 @@ from pysam import VariantFile
 
 from sklearn.decomposition import PCA
 
-sleuth_matrix = pd.read_csv(VariantFile(snakemake.input[0]), sep='\t')
+print(snakemake.input([0]))
+
+sleuth_matrix = pd.read_csv(snakemake.input[0], sep='\t')
 
 samples = list(sleuth_matrix)
 count_sam = sleuth_matrix.shape[1]

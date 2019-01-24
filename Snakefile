@@ -8,7 +8,10 @@ samples = pd.read_csv(config["samples"], sep = "\t")
 
 rule all:
     input:
+        "plots/heatmap.svg",
+        "plots/volcano.svg",
         "plots/pca.svg"
+
 
 rule kallisto_idx:
     input:
@@ -39,7 +42,10 @@ rule sleuth:
     conda:
         "envs/sleuth.yaml"  #### hier noch die unnoetigen Tools entfernen
     output:
-        "sleuth/significant_transcripts.csv"
+        "sleuth/significant_transcripts.csv",
+        "sleuth/p-values_all_transcripts.csv",
+        "sleuth/sleuth_matrix.csv",
+        "sleuth/sleuth_object"
     script:
         "r_scripts/sleuth_script.R"
 
@@ -57,8 +63,10 @@ rule volcano:
 
 rule heatmap:
     input:
+        "plots/volcano.svg",
         matrix = "sleuth/sleuth_matrix.csv",
-        dist = config["clust_dist"]
+        dist = config["clust_dist"],
+        p_all = "sleuth/p-values_all_transcripts.csv"
     conda:
         "envs/heatmap.yaml"
     output:
@@ -105,8 +113,10 @@ rule pizzly:
 rule pizzly_flatten:
     input:
         "pizzly/{sample}/result.json"# ueber alle; expand("pizzly/{sample}/result.json", sample = samples['sample'])
+    conda:
+        "envs/pizzly_flatten.yaml"
     output:
-        "plots/pizzly_genetable_{sample}.txt" #TODO eine datei pro sample aber svg
+        "plots/pizzly_genetable_{sample}.csv" #TODO eine datei pro sample aber svg
     shell:
         "python py_scripts/flatten_json.py {input} {output}"
 
