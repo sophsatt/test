@@ -1,10 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from pysam import VariantFile
-
 from sklearn.decomposition import PCA
-
-print(snakemake.input([0]))
 
 sleuth_matrix = pd.read_csv(snakemake.input[0], sep='\t')
 
