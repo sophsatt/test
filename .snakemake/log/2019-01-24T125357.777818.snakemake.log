@@ -1,0 +1,28 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	pca
+	1
+
+[Thu Jan 24 12:53:58 2019]
+rule pca:
+    input: sleuth/sleuth_matrix.csv
+    output: plots/pca.svg
+    jobid: 0
+
+[Thu Jan 24 12:53:58 2019]
+Error in rule pca:
+    jobid: 0
+    output: plots/pca.svg
+
+RuleException:
+CalledProcessError in line 83 of /home/sattle00/Fachprojekt/test/Snakefile:
+Command ' set -euo pipefail;  /home/sattle00/miniconda3/envs/test/bin/python /home/sattle00/Fachprojekt/test/.snakemake/scripts/tmpp83izjzp.pca_plot.py ' returned non-zero exit status 1.
+  File "/home/sattle00/Fachprojekt/test/Snakefile", line 83, in __rule_pca
+  File "/home/sattle00/miniconda3/envs/test/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/sattle00/Fachprojekt/test/.snakemake/log/2019-01-24T125357.777818.snakemake.log

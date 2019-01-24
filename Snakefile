@@ -8,8 +8,6 @@ samples = pd.read_csv(config["samples"], sep = "\t")
 
 rule all:
     input:
-        "plots/heatmap.svg",
-        "plots/volcano.svg",
         "plots/pca.svg"
 
 
