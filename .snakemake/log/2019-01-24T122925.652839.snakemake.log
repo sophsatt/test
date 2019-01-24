@@ -1,0 +1,19 @@
+Building DAG of jobs...
+Creating conda environment envs/kallisto.yaml...
+Downloading remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /media/sattle00/INTENSO/fprdg1/envs/kallisto.yaml:
+Solving environment: ...working... done
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... failed
+ERROR conda.core.link:_execute(507): An error occurred while installing package 'conda-forge/label/cf201901::libgcc-ng-7.2.0-hdf63c60_3'.
+PermissionError(1, 'Operation not permitted')
+Attempting to roll back.
+
+Rolling back transaction: ...working... done
+
+PermissionError(1, 'Operation not permitted')
+
+
+

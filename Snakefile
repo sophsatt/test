@@ -8,8 +8,9 @@ samples = pd.read_csv(config["samples"], sep = "\t")
 
 rule all:
     input:
-        "plots/pca.svg",
-        "plots/tsne.svg"
+        "plots/heatmap.svg",
+        "plots/volcano.svg",
+        "plots/pca.svg"
 
 
 rule kallisto_idx:
@@ -82,16 +83,6 @@ rule pca:
         "plots/pca.svg"
     script:
         "py_scripts/pca_plot.py"
-
-rule tsne:
-    input:
-        "sleuth/sleuth_matrix.csv"
-    conda:
-        "envs/tsne.yaml"
-    output:
-        "plots/tsne.svg"
-    script:
-        "py_scripts/tsne.py"
 
 rule pizzly_prep:
     input:

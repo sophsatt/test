@@ -9,28 +9,13 @@ count_sam = sleuth_matrix.shape[1]
 
 ind = list(range(0, count_sam))
 
-#print("indizes: ")
-#print(ind)
-
-#print("anzahl spalten: ")
-#print(count_sam)
-
-#print("Sleuth Matrix: ")
-
 sleuth_matrix = sleuth_matrix.transpose()
 
-
-#print("Sample array: ")
-#print samples
 n_components = 2
 
 pca = PCA(n_components=n_components)
 
 sl_pca = pca.fit_transform(sleuth_matrix)
-
-#print("Sleuth PCA")
-
-#print(sl_pca)
 
 colors = plt.cm.get_cmap("hsv", count_sam+1)
 
