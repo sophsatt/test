@@ -1,0 +1,11 @@
+Building DAG of jobs...
+Creating conda environment envs/sleuth.yaml...
+Downloading remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /home/sattle00/Fachprojekt/test/envs/sleuth.yaml:
+Solving environment: ...working... failed
+
+ResolvePackageNotFound: 
+  - bioconductor-biomart=2.38
+
+
