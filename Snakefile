@@ -17,7 +17,7 @@ if not os.path.exists("clustering_distance.txt"):
 
 rule all:
     input:
-        "plots/boxen.svg"
+        "plots/p-value.svg"
 
 
 rule kallisto_idx:
