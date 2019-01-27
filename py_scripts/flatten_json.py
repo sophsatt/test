@@ -15,8 +15,8 @@ def outputGeneTable(fusions, outf, filters = None):
     with open(outf, 'w') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         csvwriter.writerow(['\t'.join(["geneA.name", "geneA.id", "geneB.name", "geneB.id", "paircount", "splitcount", "transcripts.list"])])
-        
-        
+
+
         for gf in fusions:
             gAname = gf['geneA']['name']
             gAid   = gf['geneA']['id']
@@ -29,7 +29,7 @@ def outputGeneTable(fusions, outf, filters = None):
             csvwriter.writerow(['\t'.join([gAname, gAid, gBname, gBid, pairs, split, ';'.join(txp)])])
 
 def usage():
-    print("Usage: python flatten_json.py fusion.out.json [genetable.txt]")
+    print("Usage: python flatten_json.py fusion.out.json genetable.csv")
     print("")
     print("       outputs a flat table listing all gene fusions, if the output file is not")
 
@@ -42,8 +42,5 @@ if __name__ == "__main__":
         infn = sys.argv[1]
         fusions = loadJSON(infn)
         outf = sys.stdout
-        
-        outputGeneTable(fusions,sys.argv[2])
 
-        if outf != sys.stdout:
-            outf.close()
+        outputGeneTable(fusions,sys.argv[2])

@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a20da8b4-a445-44b7-b05d-e73572a05e3f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Snakefile" beforeDir="false" afterPath="$PROJECT_DIR$/../Snakefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../clustering_distance.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../clustering_distance.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../envs/heatmap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../envs/heatmap.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../envs/pca.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../envs/pca.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../envs/sleuth.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../envs/sleuth.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../plots/heatmap.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../plots/heatmap.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boxen_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/boxen_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flatten_json.py" beforeDir="false" afterPath="$PROJECT_DIR$/flatten_json.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_fragment_length.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_fragment_length.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pca_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/pca_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../r_scripts/.Rhistory" beforeDir="false" afterPath="$PROJECT_DIR$/../r_scripts/.Rhistory" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../r_scripts/complexHeatmap.R" beforeDir="false" afterPath="$PROJECT_DIR$/../r_scripts/complexHeatmap.R" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../r_scripts/sleuth_script.R" beforeDir="false" afterPath="$PROJECT_DIR$/../r_scripts/sleuth_script.R" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../r_scripts/svg_to_pdf.R" beforeDir="false" afterPath="$PROJECT_DIR$/../r_scripts/svg_to_pdf.R" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../r_scripts/volcano.R" beforeDir="false" afterPath="$PROJECT_DIR$/../r_scripts/volcano.R" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sleuth/sleuth_object" beforeDir="false" afterPath="$PROJECT_DIR$/../sleuth/sleuth_object" afterDir="false" />
-    </list>
+    <list default="true" id="a20da8b4-a445-44b7-b05d-e73572a05e3f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

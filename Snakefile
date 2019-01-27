@@ -19,6 +19,7 @@ rule all:
     input:
         "plots/boxen.svg"
 
+
 rule kallisto_idx:
     input:
         config["transcripts"]
@@ -134,6 +135,8 @@ rule pizzly:
 rule pizzly_flatten:
     input:
         "pizzly/{sample}/result.json"# ueber alle; expand("pizzly/{sample}/result.json", sample = samples['sample'])
+    conda:
+        "envs/pizzly_flatten.yaml"
     output:
         "plots/pizzly/pizzly_genetable_{sample}.csv"
     shell:
