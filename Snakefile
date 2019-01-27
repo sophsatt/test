@@ -108,7 +108,8 @@ rule boxen_plot:
 
 rule p_value_hist:
     input:
-        "sleuth/p-values_all_transcripts.csv"  #sleuth-tabelle mit 'pval'-Spalte
+        "sleuth/p-values_all_transcripts.csv",  #sleuth-tabelle mit 'pval'-Spalte
+        "plots/boxen.svg"
     conda:
         "envs/boxen.yaml"
     output:
@@ -125,7 +126,7 @@ rule strip_plot:
         "plots/strip.svg"
     script:
         "py_scripts/strip_plot.py"
-                
+
 rule svg_pdf:
     input:
         "plots/pca.svg",
