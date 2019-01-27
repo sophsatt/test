@@ -106,6 +106,26 @@ rule boxen_plot:
     script:
         "py_scripts/boxen_plot.py"
 
+rule p_value_hist:
+    input:
+        "sleuth/p-values_all_transcripts.csv"  #sleuth-tabelle mit 'pval'-Spalte
+    conda:
+        "envs/boxen.yaml"
+    output:
+        "plots/p-value.svg"
+    script:
+        "py_scripts/p-value_histogramm.py"
+
+rule strip_plot:
+    input:
+        "sleuth/significant_transcripts.csv"  #sleuth-matrix, mit den Spalten target_id, which_units???
+    conda:
+        "envs/boxen.yaml"
+    output:
+        "plots/strip.svg"
+    script:
+        "py_scripts/strip_plot.py"
+                
 rule svg_pdf:
     input:
         "plots/pca.svg",
@@ -166,23 +186,3 @@ rule gage:
 
     script:
         "r_scripts/gage.R"
-
-rule p_value_hist:
-    input:
-        "sleuth/p-values_all_transcripts.csv"  #sleuth-tabelle mit 'pval'-Spalte
-    conda:
-        "envs/boxen.yaml"
-    output:
-        "plots/p-value.svg"
-    script:
-        "py_scripts/p-value_histogramm.py"
-
-rule strip_plot:
-    input:
-        "sleuth/significant_transcripts.csv"  #sleuth-matrix, mit den Spalten target_id, which_units???
-    conda:
-        "envs/boxen.yaml"
-    output:
-        "plots/strip.svg"
-    script:
-        "py_scripts/strip_plot.py"
