@@ -5,12 +5,14 @@ import seaborn as sns
 #matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-daten = pd.read_csv(snakemake.input[0], sep='\t')
+#daten = pd.read_csv(snakemake.input[0], sep='\t')
+daten = pd.read_csv('sleuth/p-values_all_transcripts.csv', sep='\t')
 p_value=daten['pval']
 p=sns.distplot(p_value, kde=False, axlabel="P-Values", color="k", norm_hist=True)
 p.set(ylabel='count')
 plt.title("p-value Histogramm")
-plt.savefig(snakemake.output[0])
+plt.show()
+#plt.savefig(snakemake.output[0])
 
 
 #so = sleuth_load(snakemake.input[0])  #so=sleuth object
