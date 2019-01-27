@@ -1,8 +1,8 @@
 #Boxenplots der (normalisierten) Counts aller Samples
 import pandas as pd
 import seaborn as sns
-#import matplotlib
-#matplotlib.use("Agg")
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pysam import VariantFile
 
