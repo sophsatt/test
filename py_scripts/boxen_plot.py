@@ -3,7 +3,7 @@ import pandas as pd
 import seaborn as sns
 #import matplotlib
 #matplotlib.use("Agg")
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 #from pysam import VariantFile
 
 #daten = pd.read_csv('sleuth_matrix.csv', sep='\t')
