@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-+from pysam import VariantFile
+#from pysam import VariantFile
 
 sleuth_matrix = pd.read_csv(snakemake.input[0], sep='\t')
 

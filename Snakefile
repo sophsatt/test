@@ -119,7 +119,8 @@ rule p_value_hist:
 
 rule strip_plot:
     input:
-        "sleuth/significant_transcripts.csv"  #sleuth-matrix, mit den Spalten target_id, which_units???
+        "sleuth/significant_transcripts.csv",  #sleuth-matrix, mit den Spalten target_id, which_units???
+        "plots/p-value.svg"
     conda:
         "envs/boxen.yaml"
     output:
