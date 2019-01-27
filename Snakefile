@@ -1,14 +1,23 @@
 configfile: "config.yaml"
+import os
 import pandas as pd
 
 #kallisto: kerne in config file?
 
 samples = pd.read_csv(config["samples"], sep = "\t")
 
+if not os.path.exists("plots"):
+    os.makedirs("plots")
+
+if not os.path.exists("clustering_distance.txt"):
+    file = open("clustering_distance.txt", "w")
+    file.write("canberra")
+    file.close()
+
 
 rule all:
     input:
-        "plots/pca.svg"
+        "plots/boxen.svg"
 
 rule kallisto_idx:
     input:
@@ -27,19 +36,25 @@ rule kallisto_quant:
         fq2 = lambda wildcards: samples.loc[samples['sample'] == wildcards.sample]['fq2']
     conda:
         "envs/kallisto.yaml"
+    params:
+        "kallisto/{sample}"
     output:
-        directory("kallisto/{sample}")
+        "kallisto/{sample}/fusion.txt",
+        "kallisto/{sample}/abundance.h5"
     shell:
-        "kallisto quant --bootstrap-samples=2 -i {input.id} -o  {output} {input.fq1} {input.fq2}"
+        "kallisto quant --fusion --bootstrap-samples=2 -i {input.id} -o  {params} {input.fq1} {input.fq2}"
 
 rule sleuth:
     input:
-        kal_path = expand("kallisto/{sample}", sample = samples['sample']), #Liste der Kallisto-Pfade
+        kal_path = expand("kallisto/{sample}/abundance.h5", sample = samples['sample']), #Liste der Kallisto-Pfade
         sam_tab = config["samples"]
     conda:
         "envs/sleuth.yaml"  #### hier noch die unnoetigen Tools entfernen
     output:
-        "sleuth/significant_transcripts.csv"
+        "sleuth/significant_transcripts.csv",
+        "sleuth/p-values_all_transcripts.csv",
+        "sleuth/sleuth_matrix.csv",
+        "sleuth/sleuth_object"
     script:
         "r_scripts/sleuth_script.R"
 
@@ -57,8 +72,10 @@ rule volcano:
 
 rule heatmap:
     input:
+        "plots/volcano.svg",
         matrix = "sleuth/sleuth_matrix.csv",
-        dist = config["clust_dist"]
+        dist = config["clust_dist"],
+        p_all = "sleuth/p-values_all_transcripts.csv"
     conda:
         "envs/heatmap.yaml"
     output:
@@ -68,7 +85,8 @@ rule heatmap:
 
 rule pca:
     input:
-        "sleuth/sleuth_matrix.csv"
+        "sleuth/sleuth_matrix.csv",
+	    "plots/heatmap.svg"
     conda:
         "envs/pca.yaml"
     output:
@@ -76,49 +94,65 @@ rule pca:
     script:
         "py_scripts/pca_plot.py"
 
-rule pizzly_prep:
+rule boxen_plot:
     input:
-        id = config["kallisto_idx"],
-        fq1 = lambda wildcards: samples.loc[samples['sample'] == wildcards.sample]['fq1'],
-        fq2 = lambda wildcards: samples.loc[samples['sample'] == wildcards.sample]['fq2']
+        "sleuth/sleuth_matrix.csv",
+        "plots/pca.svg"
     conda:
-        "envs/kallisto.yaml"
+        "envs/boxen.yaml"
     output:
-        directory("pizzly/{sample}/prep")
-    shell:
-        "kallisto quant -i {input.id} --fusion -o {output} {input.fq1} {input.fq2}"
+        "plots/boxen.svg"
+    script:
+        "py_scripts/boxen_plot.py"
+
+rule svg_pdf:
+    input:
+        "plots/pca.svg",
+        plots = directory("plots")
+    conda:
+        "envs/svg_pdf.yaml"
+    output:
+        "plots/all_plots.pdf"
+    script:
+        "r_scripts/svg_to_pdf.R"
 
 rule pizzly:
     input:
         transcript = config["transcripts"],
         gtf = config["transcripts_gtf"],
-        dir = directory("pizzly/{sample}/prep")
+        fusion = "kallisto/{sample}/fusion.txt"
     conda:
         "envs/pizzly.yaml"
     params:
+        "kallisto/{sample}",
         "pizzly/{sample}/result"
     output:
         "pizzly/{sample}/result.json"
     shell:
-        "pizzly -k 31 --gtf {input.gtf} --cache {input.dir}/indx.cache.txt --align-score 2 --insert-size 400 --fasta {input.transcript} --output {params} {input.dir}/fusion.txt"
+        "pizzly -k 31 --gtf {input.gtf} --cache {params[0]}/indx.cache.txt --align-score 2 --insert-size 400 --fasta {input.transcript} --output {params[1]} {input.fusion}"
 
 rule pizzly_flatten:
     input:
         "pizzly/{sample}/result.json"# ueber alle; expand("pizzly/{sample}/result.json", sample = samples['sample'])
     output:
-        "plots/pizzly_genetable_{sample}.txt" #TODO eine datei pro sample aber svg
+        "plots/pizzly/pizzly_genetable_{sample}.csv"
     shell:
         "python py_scripts/flatten_json.py {input} {output}"
 
 rule pizzly_fragment_length:
     input:
-        "kallisto/{sample}/abundance.h5"#ueber alle; expand("kallisto/{sample}/abundance.h5", sample = samples['sample'])
+        "kallisto/{sample}/abundance.h5"
     conda:
         "envs/pizzly_fragment_length.yaml"
     output:
-        "plots/{sample}pizzly_fragment_length_{sample}.txt" #TODO als svg
+        "plots/pizzly/pizzly_fragment_length_{sample}.csv"
     shell:
-        "python py_scripts/get_fragment_length.py {input} 0.95 {output} " #evtl andees percentil angeben
+        "python py_scripts/get_fragment_length.py {input[0]} 0.95 {output} " #evtl andees percentil angeben
+
+rule all_csv_plots:
+    input:
+        expand("plots/pizzly/pizzly_genetable_{sample}.csv", sample = samples['sample']),
+        expand("plots/pizzly/pizzly_fragment_length_{sample}.csv", sample = samples['sample'])
 
 rule gage:
     input:
@@ -129,26 +163,6 @@ rule gage:
 
     script:
         "r_scripts/gage.R"
-
-rule svg_pdf:
-    input:
-        directory("plots")
-    conda:
-        "envs/svg_pdf.yaml"
-    output:
-        "rna-seq_plots.pdf"
-    script:
-        "r_scripts/svg_to_pdf.R"
-
-rule boxen_plot:
-    input:
-        "sleuth/sleuth_matrix.csv"
-    conda:
-        "envs/boxen.yaml"
-    output:
-        "plots/boxen.svg"
-    script:
-        "py_scripts/boxen_plot.py"
 
 rule p_value_hist:
     input:
