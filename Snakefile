@@ -17,7 +17,7 @@ if not os.path.exists("clustering_distance.txt"):
 
 rule all:
     input:
-        "plots/p-value.svg"
+        "plots/strip.svg"
 
 
 rule kallisto_idx:
@@ -119,7 +119,8 @@ rule p_value_hist:
 
 rule strip_plot:
     input:
-        "sleuth/significant_transcripts.csv"  #sleuth-matrix, mit den Spalten target_id, which_units???
+        "sleuth/p-values_all_transcripts.csv",  #significant_transcripts.csv",  #sleuth-matrix, mit den Spalten target_id, which_units???
+        "plots/p-value.svg"
     conda:
         "envs/boxen.yaml"
     output:
