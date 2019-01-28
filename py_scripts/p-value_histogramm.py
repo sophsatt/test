@@ -1,18 +1,22 @@
 #p-value Histogramm
 import pandas as pd
 import seaborn as sns
-#import matplotlib
-#matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 
-#daten = pd.read_csv(snakemake.input[0], sep='\t')
-daten = pd.read_csv('sleuth/p-values_all_transcripts.csv', sep='\t')
-p_value=daten['pval']
-p=sns.distplot(p_value, kde=False, axlabel="P-Values", color="k", norm_hist=True)
-p.set(ylabel='count')
+p_value_table = pd.read_csv(snakemake.input[0], sep='\t')
+#p_value_table = pd.read_csv('p-values_all_transcripts.csv', sep='\t')
+
+p_value = p_value_table['pval']
+
+p_value = p_value.dropna()
+
+pval_plot = sns.distplot(p_value, kde=False, axlabel="P-Values", color="k", norm_hist=True)
+pval_plot.set(ylabel='count')
 plt.title("p-value Histogramm")
-plt.show()
-#plt.savefig(snakemake.output[0])
+
+#plt.show()
+plt.savefig(snakemake.output[0])
 
 
 #so = sleuth_load(snakemake.input[0])  #so=sleuth object
